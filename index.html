@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Source Contributors</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🚀 Contributors Page</h1>
+  <p>Click below to add yourself:</p>
+  <a href="form.html">➕ Add Your Contributor Card</a>
+  <div id="cards-container" class="cards"></div>
+
+  <script>
+    fetch('contributors.json')
+      .then(res => res.json())
+      .then(files => {
+        const container = document.getElementById("cards-container");
+        files.forEach(file => {
+          fetch(`contributors/${file}`)
+            .then(res => res.text())
+            .then(html => {
+              const div = document.createElement("div");
+              div.innerHTML = html;
+              container.appendChild(div);
+            });
+        });
+      });
+  </script>
+</body>
+</html>
